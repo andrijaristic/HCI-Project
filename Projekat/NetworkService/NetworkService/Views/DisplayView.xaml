@@ -1,0 +1,184 @@
+﻿<UserControl x:Class="NetworkService.Views.DisplayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetworkService.Views"
+             xmlns:vml="clr-namespace:NetworkService.VML"
+             vml:ViewModelLocator.AutoHookedUpViewModel="True"
+             xmlns:data="clr-namespace:NetworkService.Model" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" d:DesignWidth="800" Height="800" x:Name="DataTable">
+
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type data:Generator}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Path=ID, Mode=OneWay}"/>
+                <TextBlock Text="{Binding Path=Name, Mode=OneWay}"/>
+                <TextBlock Text="{Binding Path=Type, Mode=OneWay}"/>
+                <TextBlock Text="{Binding Path=Value, Mode=OneWay}"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <!--Grid.RowDefinitions>
+            <RowDefinition Height="776*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="16*"/>
+        </Grid.RowDefinitions-->
+
+        <RadioButton x:Name="rbName" Command="{Binding NameCheckedCommand}"  Height="20"  VerticalContentAlignment="Center" Margin="45,35,718,745"/>
+        <Label x:Name="labelName" Content="Name" FontSize="20" Height="Auto"  VerticalContentAlignment="Center" Margin="59,25,658,737"/>
+
+        <RadioButton x:Name="rbType" Command="{Binding TypeCheckedCommand}" Height="20"  VerticalContentAlignment="Center" Margin="45,74,718,706"/>
+        <Label x:Name="labelType" Content="Type" FontSize="20" Height="Auto"  VerticalContentAlignment="Center" Margin="59,60,658,702"/>
+
+        <TextBox x:Name="textBoxSearch" Text="{Binding Path=SearchTextBox}" FontSize="16" VerticalContentAlignment="Center" Margin="131,44,516,715"/>
+        <Button x:Name="buttonSearch" Height="40"  Content="Search" FontSize="20" FontWeight="SemiBold" Command="{Binding SearchCommand}" Margin="303,26,387,734"/>
+        <Button x:Name="buttonCancelSearch" Height="40"  Content="Cancel Search" FontSize="16" FontWeight="SemiBold" Command="{Binding CancelSearchCommand}" Margin="303,71,358,689"/>
+
+        <RadioButton x:Name="rbValueIn" Command="{Binding InRangeCommand}"  Height="20"  VerticalContentAlignment="Center" Margin="462,40,301,740"/>
+        <Label x:Name="labelValueIn" Content="Expected values" FontSize="14" Height="Auto"  VerticalContentAlignment="Center" Margin="478,30,193,732"/>
+
+        <RadioButton x:Name="rbValueOut" Command="{Binding OutOfRangeCommand}" Height="20"  VerticalContentAlignment="Center" Margin="461,78,302,702"/>
+        <Label x:Name="labelValueOut" Content="Out of range values" FontSize="14" Height="Auto"  VerticalContentAlignment="Center" Margin="478,68,175,694"/>
+
+        <Button x:Name="buttonFilter" Height="40"  Content="Filter" FontSize="20" FontWeight="SemiBold" Command="{Binding FilterCommand}" Margin="619,25,71,735"/>
+        <Button x:Name="buttonCancelFilter" Height="40"  Content="Cancel Filter" FontSize="16" FontWeight="SemiBold" Command="{Binding CancelFilterCommand}" Margin="619,71,42,689"/>
+
+        <!--Separator Height="1"/-->
+        <DataGrid AutoGenerateColumns="False" 
+                  ItemsSource="{Binding Path=GeneratorsSearch, UpdateSourceTrigger=PropertyChanged}"  
+                  SelectedItem="{Binding SelectedGenerator}" 
+                  CanUserAddRows="False" Margin="42,127,42,253"
+                  BorderBrush="Black" BorderThickness="1"
+                  CanUserResizeRows="False" IsReadOnly="true">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Value" Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Width="*" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Type" Binding="{Binding Type.Name}" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Top" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="FontSize" Value="16" />
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--Separator Height="10" Margin="-33,93,33,697"/-->
+
+
+        <TextBlock Text="ID:" FontSize="20" Height="25" TextAlignment="Center" Margin="72,580,674,195"/>
+        <TextBlock Text="Name:" FontSize="20" Width="80" Height="25" TextAlignment="Center" Margin="51,622,669,153" />
+        <TextBlock Text="Type:" FontSize="20" Width="80" Height="25" TextAlignment="Center" Margin="46,668,674,107"/>
+
+        <TextBox Text="{Binding IDTextBox, Mode=TwoWay}" Height="25" ToolTip="ID must be unique" Margin="131,580,559,195" VerticalContentAlignment="Center"/>
+        <TextBox Text="{Binding NameTextBox, Mode=TwoWay}" Height="25" Margin="131,621,510,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="cbType2" ItemsSource="{Binding GeneratorTypes, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding  SelectedGeneratorType}" Text="Select option" Height="25" Margin="131,667,510,108"/>
+
+
+        <!--Separator Width="10"/-->
+
+        <!--Separator Width="10"/-->
+        <Image x:Name="ImgSrc" Source="{Binding PathFull, UpdateSourceTrigger=PropertyChanged}" Margin="295,580,259,95"/>
+        <!--Separator Width="10"/-->
+
+        <Button x:Name="btnAdd" Content="ADD"  
+                Command="{Binding AddCommand}" 
+                Margin="563,583,59,184"                  
+                FontSize="16"
+                FontWeight="SemiBold"
+                BorderBrush="Black"
+                BorderThickness="1"/>
+
+        <Button x:Name="btnDelete" Content="DELETE" 
+                Command="{Binding DeleteCommand}" 
+                Margin="563,626,59,141"
+                FontSize="16"
+                FontWeight="SemiBold"
+                BorderBrush="Black"
+                BorderThickness="1"/>
+
+
+
+
+    </Grid>
+
+
+</UserControl>
